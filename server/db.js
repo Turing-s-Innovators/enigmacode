@@ -1,5 +1,4 @@
 require("dotenv").config();
-const Promise = require("bluebird");
 const { Pool } = require('pg');
 
 
@@ -19,7 +18,5 @@ pool.on('error', (err) => {
   console.log(`Unexpected error on idle client: ${err.stack || err}`);
   process.exit(1);
 });
-
-// const db = Promise.promisifyAll(connection, { multiArgs: true });
 
 module.exports = pool; // Will use to connect to db when querying
