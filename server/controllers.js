@@ -5,66 +5,80 @@ const findReviewMetadata = require('./models/findReviewMetadata.js');
 const findReviews = require('./models/findReviews.js');
 const makeHelpful = require('./models/makeHelpful.js');
 const makeReported = require('./models/makeReported.js');
+const pool = require("./db.js");
 
-exports.getReviews = (req, res) => {
-  // Query params from client (or defaults)
-  let product_id = req.params.product_id;
-  let page = req.query.page || 1;
-  let count = req.query.count || 5;
-  let sort = req.query.sort || 'newest';
+module.exports = {
+  getReviews: (req, res) => {
+    // Query params from client (or defaults)
+    let product_id = req.params.product_id;
+    let page = req.query.page || 1;
+    let count = req.query.count || 5;
+    let sort = req.query.sort || 'newest';
 
-  findReviews({product_id, page, count, sort}).then(response => {
-    res.send(response);
-  }).catch(err => {
-    console.log('Error getting reviews: ', err);
-    res.sendStatus(404);
-  });
-};
+    findReviews({product_id, page, count, sort}).then(response => {
+      res.send(response);
+    }).catch(err => {
+      console.log('Error getting reviews: ', err);
+      res.sendStatus(404);
+    });
+  },
 
-exports.getReviewMetaData = (req, res) => {
-  // Query params from client
-  let product_id = req.params.product_id;
+  getReviewMetaData: (req, res) => {
+    // Query params from client
+    let product_id = req.params.product_id;
 
-  findReviewMetadata(product_id).then(response => {
-    res.send(response);
-  }).catch(err => {
-    console.log('Error getting review metadata: ', err);
-    res.sendStatus(404);
-  });
-};
+    findReviewMetadata(product_id).then(response => {
+      res.send(response);
+    }).catch(err => {
+      console.log('Error getting review metadata: ', err);
+      res.sendStatus(404);
+    });
+  },
 
-exports.addReview = (req, res) => {
-  // Body params from client
-  let params = { ...req.body, product_id: req.params.product_id };
+  addReview: (req, res) => {
+    // Body params from client
+    let params = { ...req.body, product_id: req.params.product_id };
 
-  createReview(params).then(response => {
-    res.sendStatus(201);
-  }).catch(err => {
-    console.log('Error adding review: ', err);
-    res.sendStatus(404);
-  });
-};
+    createReview(params).then(response => {
+      res.sendStatus(201);
+    }).catch(err => {
+      console.log('Error adding review: ', err);
+      res.sendStatus(404);
+    });
+  },
 
-exports.markHelpful = (req, res) => {
-  // Params from client
-  let review_id = req.query.review_id;
+  markHelpful: (req, res) => {
+    // Params from client
+    let review_id = req.params.review_id;
 
-  makeHelpful(review_id).then(response => {
-    res.sendStatus(201);
-  }).catch(err => {
-    console.log('Error marking helpful: ', err);
-    res.sendStatus(404);
-  });
-};
+    makeHelpful(review_id).then(response => {
+      res.sendStatus(201);
+    }).catch(err => {
+      console.log('Error marking helpful: ', err);
+      res.sendStatus(404);
+    });
+  },
 
-exports.markReported = (req, res) => {
-  // Params from client
-  let review_id = req.query.review_id;
+  markReported: async (req, res) => {
+    // Params from client
+    let review_id = req.params.review_id;
+    let queryStr = `UPDATE reviews SET reported = true WHERE id = ${review_id}`;
 
-  makeReported(review_id).then(response => {
-    res.sendStatus(201);
-  }).catch(err => {
-    console.log('Error marking reported: ', err);
-    res.sendStatus(404);
-  });
-};
+    console.log('THIS IS THE REVIEW ID: ', review_id);
+  //   makeReported(review_id).then(data => {
+  //     res.sendStatus(204);
+  //   }).catch(err => {
+  //     console.log('Error marking reported: ', err);
+  //     res.sendStatus(404);
+  //   });
+  // },
+    try {
+      const {rows} = await pool.query(queryStr);
+      res.sendStatus(204);
+      console.log('Query successful!');
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(404);
+    }
+  }
+}

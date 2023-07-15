@@ -1,6 +1,14 @@
-const db = require("../db.js");
+const pool = require("../db.js");
 
-exports.makeHelpful = (review_id) => {
-  let queryStr = '';
+// module.exports = (review_id) => {
+//   let queryStr = `UPDATE reviews SET reported = true WHERE id = ${review_id}`;
 
-};
+//   (async (req, res) => {
+//     try {
+//       const {rows} = await pool.query(queryStr);
+//       console.log('Query successful!');
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   })();
+// };

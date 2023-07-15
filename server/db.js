@@ -1,7 +1,6 @@
 require("dotenv").config();
 const { Pool } = require('pg');
 
-
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -16,7 +15,7 @@ pool.on('connect', (client) => {
 
 pool.on('error', (err) => {
   console.log(`Unexpected error on idle client: ${err.stack || err}`);
-  process.exit(1);
+  process.exit(-1);
 });
 
 module.exports = pool; // Will use to connect to db when querying
