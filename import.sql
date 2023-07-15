@@ -48,12 +48,14 @@ create table reviews_photos (
 \copy characteristics_reviews from '/Users/brendanlaw/hrsei/sdc/enigmacode/data/characteristic_reviews.csv' delimiter ',' header csv;
 \copy reviews_photos from '/Users/brendanlaw/hrsei/sdc/enigmacode/data/reviews_photos.csv' delimiter ',' header csv;
 
--- SELECT setval(pg_get_serial_sequence('reviews', 'id'), max(id)) FROM reviews;
--- SELECT setval(pg_get_serial_sequence('reviews_photos', 'id'), max(id)) FROM reviews_photos;
--- SELECT setval(pg_get_serial_sequence('characteristics', 'id'), max(id)) FROM characteristics;
--- SELECT setval(pg_get_serial_sequence('characteristics_reviews', 'id'), max(id)) FROM characteristics_reviews;
+-- https://stackoverflow.com/questions/244243/how-to-reset-postgres-primary-key-sequence-when-it-falls-out-of-sync
+-- https://kevdees.com/how-to-reset-the-primary-key-sequence-id-in-postgresql/
+SELECT setval(pg_get_serial_sequence('reviews', 'id'), max(id)) FROM reviews;
+SELECT setval(pg_get_serial_sequence('reviews_photos', 'id'), max(id)) FROM reviews_photos;
+SELECT setval(pg_get_serial_sequence('characteristics', 'id'), max(id)) FROM characteristics;
+SELECT setval(pg_get_serial_sequence('characteristics_reviews', 'id'), max(id)) FROM characteristics_reviews;
 
--- create index review_product_id_index ON reviews (product_id, rating, recommend);
--- create index characteristics_product_id_index ON characteristics (product_id, name);
--- create index characteristics_characteristics_id_index ON characteristics_reviews (characteristic_id, value);
--- create index reviews_photos_review_id ON reviews_photos (review_id);
+CREATE INDEX review_product_id_index ON reviews (product_id, rating, recommend);
+CREATE INDEX characteristics_product_id_index ON characteristics (product_id, name);
+CREATE INDEX characteristics_characteristics_id_index ON characteristics_reviews (characteristic_id, value);
+CREATE INDEX reviews_photos_review_id ON reviews_photos (review_id);

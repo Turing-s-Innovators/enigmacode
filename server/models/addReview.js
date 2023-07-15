@@ -9,11 +9,11 @@ module.exports = async (req, res) => {
   let queryStr = `INSERT INTO "reviews"
                     ("product_id", "rating", "date", "summary", "body",
                       "recommend", "reviewer_name", "reviewer_email", "helpfulness")
-                    VALUES (${params.product_id}, ${params.rating}, CURRENT_TIMESTAMP, '${params.summary}',
+                    VALUES (${params.product_id}, ${params.rating}, current_timestamp, '${params.summary}',
                       '${params.body}', ${params.recommend}, '${params.name}', '${params.email}', 0)
                     RETURNING id;`;
 
-  try {
+  try { // will need to insert photos below
     const {rows} = await pool.query(queryStr);
     res.sendStatus(201);
     console.log('Query successful!');

@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   let count = req.query.count || 5;
   let sort = req.query.sort || 'newest';
 
-  let queryStr = `SELECT id AS review_id, rating, summary, recommend, response, body, date, reviewer_name, helpfulness,`; // IN PROGRESS
+  let queryStr = `SELECT id AS review_id, rating, summary, recommend, response, body, TO_TIMESTAMP(date), reviewer_name, helpfulness,`; // IN PROGRESS
 
   try {
     const {rows} = await pool.query(queryStr);
