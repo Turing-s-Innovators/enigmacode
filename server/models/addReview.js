@@ -14,6 +14,11 @@ module.exports = async (req, res) => {
 
   try { // will need to insert photos below
     const {rows} = await pool.query(queryStr);
+    // async (res) => {
+    //   await photos.forEach(photo => {
+    //     `INSERT INTO reviews_photos (review_id, url) VALUES (${res.rows[0].id}, ${photo})`
+    //   })
+    // }
     res.sendStatus(201);
     console.log('Query successful!');
   } catch (err) {
