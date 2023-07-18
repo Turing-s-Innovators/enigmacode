@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
 
   try {
     const {rows} = await pool.query(queryStr);
-    res.send(rows);
+    res.status(200).send(rows);
     console.log('Query successful!');
   } catch (err) {
     console.error(err);

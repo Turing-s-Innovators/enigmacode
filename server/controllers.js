@@ -1,15 +1,21 @@
 const addReview = require('./models/addReview.js');
+const addPhotos = require('./models/addPhotos.js');
+const addCharsReviews = require('./models/addCharsReviews.js');
 
 // Creating more flushed out models and controllers for more complicated parts
 module.exports = {
   addReviewControl: (req, res) => {
     let params = { ...req.body, product_id: req.params.product_id };
 
-    addReview(params)
-    .then((data) => {
-      let review_id = data[0].id;
+    return addReview(params)
+    .then(({rows}) => {
+      let review_id = rows[0].id;
+      console.log(review_id);
+      addPhotos({photos: params.photos, review_id});
+      addCharsReviews({characteristics: params.characteristics, review_id});
       res.status(201).send({review_id});
-    }).catch(err => {
+    })
+    .catch(err => {
       console.error(err);
       res.sendStatus(404);
     })
