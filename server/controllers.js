@@ -1,6 +1,7 @@
 const addReview = require('./models/addReview.js');
 const addPhotos = require('./models/addPhotos.js');
 const addCharsReviews = require('./models/addCharsReviews.js');
+const getReviewMetaData = require('./models/getReviewMetaData.js');
 
 // Creating more flushed out models and controllers for more complicated parts
 module.exports = {
@@ -18,6 +19,19 @@ module.exports = {
     .catch(err => {
       console.error(err);
       res.sendStatus(404);
+    })
+  },
+
+  getMetadataControl: (req, res) => {
+    let product_id = req.params.product_id;
+
+    getReviewMetaData(product_id)
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.error(err);
+        res.sendStatus(404);
     })
   }
 }

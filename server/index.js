@@ -1,6 +1,5 @@
 require("dotenv").config();
 const getReviews = require('./models/getReviews.js')
-const getReviewMetaData = require('./models/getReviewMetaData.js')
 const markHelpful = require('./models/markHelpful.js')
 const markReported = require('./models/markReported.js')
 const controllers = require('./controllers.js');
@@ -21,10 +20,10 @@ app.get('/', (req, res) => { // Basic route to test server connectivity, delete 
 
 // These ARE running through controllers.js to models
 app.post('/reviews/:product_id', controllers.addReviewControl);
+app.get('/reviews/:product_id/meta', controllers.getMetadataControl);
 
 // These ARE NOT running through controllers.js, straight to models
 app.get('/reviews/:product_id/list', getReviews);
-app.get('/reviews/:product_id/meta', getReviewMetaData);
 app.put('/reviews/helpful/:review_id', markHelpful);
 app.put('/reviews/report/:review_id', markReported);
 

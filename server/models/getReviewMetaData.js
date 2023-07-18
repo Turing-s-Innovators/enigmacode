@@ -1,8 +1,6 @@
 const pool = require("../db.js");
 
-module.exports = async (req, res) => {
-  let product_id = req.params.product_id;
-
+module.exports = async (product_id) => {
   // Create queries to retrieve info from reviews and characteristics
   let queryReviewStr = `SELECT id, rating, recommend FROM reviews WHERE product_id = ${product_id}`;
   console.log(queryReviewStr);
@@ -54,7 +52,7 @@ module.exports = async (req, res) => {
    client.release();
 
    let compiledMetadata = {product_id, ratings, recommended, characteristics}
-   console.log(compiledMetadata);
    return compiledMetadata;
+   console.log('Query successful!');
 }
 

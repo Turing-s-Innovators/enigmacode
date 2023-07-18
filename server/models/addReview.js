@@ -14,6 +14,7 @@ module.exports = (params) => {
         .then((res) => {
           client.release();
           return res;
+          console.log('Post successful!');
         })
         .catch((err) => {
           client.release();
