@@ -11,10 +11,10 @@ create table reviews (
   summary text,
   body text,
   recommend boolean,
-  reported boolean,
+  reported boolean default false,
   reviewer_name text,
   reviewer_email text,
-  response text,
+  response text default 'null',
   helpfulness int
 );
 

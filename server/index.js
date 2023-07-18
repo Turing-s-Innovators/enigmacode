@@ -21,10 +21,10 @@ app.get('/', (req, res) => { // Basic route to test server connectivity, delete 
 
 // These ARE running through controllers.js to models
 app.post('/reviews/:product_id', controllers.addReviewControl);
-app.get('/reviews/:product_id/meta', getReviewMetaData);
 
 // These ARE NOT running through controllers.js, straight to models
 app.get('/reviews/:product_id/list', getReviews);
+app.get('/reviews/:product_id/meta', getReviewMetaData);
 app.put('/reviews/helpful/:review_id', markHelpful);
 app.put('/reviews/report/:review_id', markReported);
 
