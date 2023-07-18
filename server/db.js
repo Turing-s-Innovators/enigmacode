@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Pool } = require('pg');
+const { Pool, Client } = require('pg');
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -18,4 +18,4 @@ pool.on('error', (err) => {
   process.exit(-1);
 });
 
-module.exports = pool; // Will use to connect to db when querying
+module.exports = pool;
