@@ -11,7 +11,6 @@ module.exports = {
     return addReview(params)
     .then(({rows}) => {
       let review_id = rows[0].id;
-      console.log(review_id);
       addPhotos({photos: params.photos, review_id});
       addCharsReviews({characteristics: params.characteristics, review_id});
       res.status(201).send({review_id});
