@@ -2,6 +2,7 @@ const addReview = require('./models/addReview.js');
 const addPhotos = require('./models/addPhotos.js');
 const addCharsReviews = require('./models/addCharsReviews.js');
 const getReviewMetaData = require('./models/getReviewMetaData.js');
+const getReviews = require('./models/getReviews.js');
 
 // Creating more flushed out models and controllers for more complicated parts
 module.exports = {
@@ -11,7 +12,6 @@ module.exports = {
     return addReview(params)
     .then(({rows}) => {
       let review_id = rows[0].id;
-      console.log(review_id);
       addPhotos({photos: params.photos, review_id});
       addCharsReviews({characteristics: params.characteristics, review_id});
       res.status(201).send({review_id});

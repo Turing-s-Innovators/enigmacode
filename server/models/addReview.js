@@ -1,8 +1,6 @@
 const pool = require("../db.js");
 
 module.exports = (params) => {
-  console.log('Here is the review being added: ', params);
-
   let queryStr = `INSERT INTO reviews (product_id, rating, date, summary, body,
                   recommend, reviewer_name, reviewer_email, helpfulness)
                   VALUES (${params.product_id}, ${params.rating}, current_timestamp, '${params.summary}',
