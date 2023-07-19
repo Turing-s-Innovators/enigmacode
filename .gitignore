@@ -3,4 +3,4 @@ node_modules
 .DS_STORE
 *.csv
 enigma-load-test.yml
-*Test.html
+artillerytest
