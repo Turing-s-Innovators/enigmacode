@@ -18,18 +18,16 @@ module.exports = async (product_id) => {
 
   // Making the ratings object in metadata
   let ratings = {};
+  // Making the recommended object in metadata
+  let recommended = {0: 0, 1: 0};
   for (let i = 0; i < reviewsRows.length; i++) {
     if (!ratings[reviewsRows[i].rating]) {
       ratings[reviewsRows[i].rating] = 1;
     } else {
       ratings[reviewsRows[i].rating] = ratings[reviewsRows[i].rating]++;
     }
-  }
 
-  // Making the recommended object in metadata
-  let recommended = {0: 0, 1: 0};
-  for (let j = 0; j < reviewsRows.length; j++) {
-    if (reviewsRows[j].recommend) {
+    if (reviewsRows[i].recommend) {
       recommended['1'] += 1;
     } else {
       recommended['0'] += 1;
