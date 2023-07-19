@@ -2,6 +2,7 @@ const addReview = require('./models/addReview.js');
 const addPhotos = require('./models/addPhotos.js');
 const addCharsReviews = require('./models/addCharsReviews.js');
 const getReviewMetaData = require('./models/getReviewMetaData.js');
+const getReviews = require('./models/getReviews.js');
 
 // Creating more flushed out models and controllers for more complicated parts
 module.exports = {

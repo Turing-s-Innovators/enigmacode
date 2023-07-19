@@ -17,5 +17,3 @@ scenarios:
     flow:
       - get:
           url: "/reviews/1000/list"
-      - get:
-          url: "/reviews/1000/meta"
