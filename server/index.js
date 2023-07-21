@@ -1,4 +1,7 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== 'production') {
+  require("dotenv").config();
+}
+
 const getReviews = require('./models/getReviews.js')
 const markHelpful = require('./models/markHelpful.js')
 const markReported = require('./models/markReported.js')
